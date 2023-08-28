@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
+    <title>Frontend Mentor | Interactive card details form</title>
+    <style>
+        :root{
+        
+            --gradient: linear-gradient(to right ,
+                 hsl(249, 99%, 64%) to hsl(278, 94%, 30%));
+            --red : hsl(0, 100%, 66%);
+            --white: hsl(0, 0%, 100%);
+            --light-grayish-violet: hsl(270, 3%, 87%);
+            --dark-grayish-violet: hsl(279, 6%, 55%);
+            --very-dark-violet: hsl(278, 68%, 11%);
+        }
+        html{
+            box-sizing: border-box;            
+        }    
+        p{
+            font-size: 16px;
+        }      
+        *,*::before,*::after{
+            text-align: left;
+            box-sizing: inherit;
+            margin: 0;
+            padding: 0;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .card-container{
+            background-image: url('./images/bg-main-mobile.png');
+            background-position: top center;         
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            width: 100%;
+          
+            height: 240px;
+            margin: 0 auto 80px;
+        }
+        .card-back, .card-front{
+            width: 100%;
+            max-width: 286px;         
+        }
+        .img-back{
+            width: 100%;
+        }
+        .img-front{
+            width: 100%;
+        }        
+        .card-cvc{
+            color: var(--white);
+            position: absolute;
+            right: 35px;
+            bottom: 78px;
+            font-size: 10px;
+            letter-spacing: 1px;
+        }
+        .card-back{
+            position: relative;
+            left:  25px;
+        }
+        .card-front{
+            position: relative;
+            bottom: 73px;
+            left: -30px;
+        }
+        .card-data{
+            position: absolute;
+            bottom: 25px;
+            color: var(--white);
+            width: 100%;
+        }
+        .card-number{
+            letter-spacing: 2px;
+            font-size: 18px;
+            width: 100%;
+            text-align: left;
+            padding: 25px  0 15px 25px;
+        }
+        .name-date{     
+            display: flex;
+            align-items: center;          
+            padding:0 25px;
+            justify-content: space-between;
+        }
+        .card-name{
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+        .card-logo{
+            width: 60px;
+            position: absolute;
+            bottom: 85px;
+            left: 25px;
+        }        
+        .card-date{
+            letter-spacing: 1px;
+            font-weight: 500;
+            font-size: 11px;
+        }
+        .hidden{
+            display: none;
+        }
+        #cvc::-webkit-inner-spin-button,
+        #cvc::-webkit-outer-spin-button {
+            -webkit-appearance: none;     
+        }
+        form label{
+            color: var(--very-dark-violet);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 14px;
+        }
+        input{
+            font-size: 18px;
+            color: var(--very-dark-violet);
+            padding: 10px 15px;
+            outline: none;
+            width: 100%;
+            border-radius: 8px;
+            border: 2px solid var(--light-grayish-violet);
+        }
+        input:focus{
+            border: 2px solid hsl(278, 94%, 30%);
+        }
+        input::placeholder{
+            color: var(--dark-grayish-violet);
+        }
+        input[type="submit"]{
+            background-color: var(--very-dark-violet);
+            color: var(--white);
+            border: none;
+            text-align: center;
+            padding: 14px 0;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .name-container,
+        .number-container,
+        .date-container,
+        .cvc-container{
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 25px;
+        }
+        .form
+        ,.notification{
+            max-width: 500px;
+            width: 100%;
+            padding: 20px;  
+            margin:  0 auto;
+        }
+        .notification{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            height: 100%;
+        }
+        .subtitle{
+            text-transform: uppercase;
+            color:var(--very-dark-violet);
+            font-size: 28px;
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+        .text{
+            margin-bottom: 20px;
+            color: var(--dark-grayish-violet);
+        }
+        .data-grid{
+            display: grid;
+            grid-template-columns: auto auto;
+            gap: 10px;
+        }
+        .inputs-date{
+            display: flex;
+             gap: 10px;
+        }
+        .cards{
+            margin:0 auto;
+            padding: 40px 0;      
+            width: auto;
+            max-width: 286px;
+            height: 100%;
+        }
+     
+        @media (min-width: 1189px) {
+            main{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+            .card-container{
+                background-image: url('./images/bg-main-desktop.png');
+                width: 70%;
+                margin: 0 100px 0  0 ;
+                height: 100vh;
+         
+            }
+            .name-container,
+            .number-container,
+            .date-container,
+            .cvc-container{
+                margin-bottom: 30px;
+            }
+            .card-back{
+                left: 55%;
+                top: 50%;      
+                max-width: 400px;      
+            }
+            .card-front{
+                left:30%;
+                top: -20%;
+                max-width: 400px;
+            }
+            .cards{
+                height: 100vh;
+                max-width: 400px;
+            }
+            .form{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            .card-data{            
+                bottom: 30px;             
+            }
+            .card-number{
+                letter-spacing: 2px;
+                font-size: 26px;     
+                padding: 25px;
+            }       
+            .card-name{
+                font-size: 14px;
+                letter-spacing: 2px;
+            }
+            .card-logo{
+                width: 70px;        
+                bottom: 130px;
+            }        
+            .card-date{     
+                font-size: 14px;
+                letter-spacing: 2px;
+            }
+            .card-cvc{
+                right: 45px;
+                bottom: 105px;
+                font-size: 16px;
+                letter-spacing: 2px;
+            }
+
+        }
+        @media (min-width: 1440px) {
+            .form{
+                margin-right: 250px;
+            }
+        }
+        .error{
+            border: 2px solid var(--red);
+        }
+        .error-text{
+            color: var(--red);
+            font-size: 13px;
+            margin-bottom: -15px;            
+        }
+        .hidden{
+            display: none;
+        }
+        .icon-container{
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section class="card-container"> 
+            <div class="cards">
+                <div class="card-back">
+                    <img class="img-back" src="./images/bg-card-back.png" alt="card-back">
+                    <p class="card-cvc">
+                        000
+                    </p>              
+                </div>
+                <div class="card-front">
+                    <img class="img-front" src="./images/bg-card-front.png" alt="card-front">
+                    <div class="card-data">
+                        <img class="card-logo" src="./images/card-logo.svg" alt="card-logo">
+                        <p class="card-number">
+                            0000 0000 0000 0000
+                        </p>
+                        <div class="name-date">
+                            <h2 class="card-name"x>
+                                Jane Appleseed
+                            </h2>
+                            <p class="card-date">
+                                <span class="card-month">00</span>/<span class="card-year">00</span>
+                            </p>
+                        </div>                    
+                    </div>
+                </div>
+            </div> 
+        </section>
+        <form novalidate class="form">
+            <div class="name-container">
+                <label for="name">
+                    Cardholder Name
+                </label>
+                <input id="name" type="text" placeholder="e.g. Jane Appleseed" name="name">
+                <p class="error-text error-name hidden">
+                    Can´t be blank
+                </p>
+            </div>            
+            <div class="number-container">
+                <label for="number">                 
+                    Card Number
+                </label>
+                <input name="number" id="number" type="text" placeholder="e.g. 1234 5678 9123 0000">
+                <p class="error-text error-number hidden">
+                    Wrong format, numbers only
+                </p>
+            </div>
+            <div class="data-grid">
+                <div class="date-container">
+                    <label for="date">                 
+                        Exp. Date (MM/YY)
+                    </label>
+                    <div class="inputs-date">
+                        <input name="date" id="month" type="datetime" placeholder="MM"  maxlength="2">
+                        <input name="date" id="year" type="datetime" placeholder="YY" maxlength="2">
+                    </div>
+                    <p class="error-text error-date hidden">
+                        Can't be blank
+                    </p>
+                </div>
+                <div class="cvc-container">
+                    <label for="cvc">       
+                        CVC       
+                    </label>
+                    <input id="cvc" type="text" placeholder="e.g. 123" maxlength="3" name="cvc" >
+                    <p class="error-text error-cvc hidden">
+                        Can't be blank
+                    </p>
+                </div>
+            </div>
+            <input type="submit" value="Confirm" >
+
+        </form>
+        <section class="notification hidden">
+            <div class="icon-container">
+                <img src="./images/icon-complete.svg" alt="icon-complete">
+            </div>
+            <h2 class="subtitle">                
+                Thank you!
+            </h2>
+            <p class="text"> 
+                We've added your card details
+            </p>
+            <input type="submit" id="continue" value="Continue">
+          
+        </section>
+    </main>
+    <script>
+        const form = document.querySelector('.form');
+        const number = document.querySelector('#number');
+        const name = document.querySelector('#name');
+        const month = document.querySelector('#month');
+        const year = document.querySelector('#year');
+        const cvc = document.querySelector('#cvc');
+        const btnContinue = document.querySelector('#continue');
+        const notification = document.querySelector('.notification');
+        number.addEventListener('input',(e)=>{   
+            const cardNumber = document.querySelector('.card-number');
+            const maxLength = 16;
+            if(e.target.value===''){
+                cardNumber.textContent =  '0000 0000 0000 0000'
+                return;
+            }
+            let formattedValue = e.target.value.replace(/\s/g, ''); 
+            formattedValue = formattedValue.replace(/\D/g, '');
+            formattedValue = formattedValue.slice(0, maxLength); 
+            formattedValue = formattedValue.replace(/(\d{4})(?=\d)/g, '$1 ');             
+            e.target.value = formattedValue;
+            cardNumber.textContent =  formattedValue;     
+        });
+        year.addEventListener('input',(e)=>{
+            const cardYear = document.querySelector('.card-year');
+            const value = e.target.value;
+            if(value<22){
+                e.target.value = e.target.value.slice(0, 1); 
+                return;
+            }
+            cardYear.textContent  = e.target.value;
+        });
+        month.addEventListener('input',(e)=>{
+             const cardMonth = document.querySelector('.card-month');
+             const value = e.target.value;
+             if(value<1||value>12){
+                 e.target.value = e.target.value.slice(0, 1); 
+                 return;
+             }
+             if(value.length<2 && value!=='1'){
+                e.target.value='0'+e.target.value;
+            }
+            cardMonth.textContent  =e.target.value;
+       
+        });
+        cvc.addEventListener('input',(e)=>{
+            const cardCVC = document.querySelector('.card-cvc');
+            if(e.target.value===''){
+                cardCVC.textContent =  '000';
+                return;
+            }
+            cardCVC.textContent  = e.target.value;
+        })
+        name.addEventListener('input',(e)=>{
+            const cardName = document.querySelector('.card-name');
+            if(e.target.value===''){
+                cardName.textContent =  'Jane Appleseed';
+                return;
+            }
+            cardName.textContent  = e.target.value;
+        })
+        form.addEventListener('submit',(e)=>{
+            e.preventDefault();
+
+            const fields = [
+                { element: name, minLength: 5, errorField: name },
+                { element: number, minLength: 19, errorField: number },
+                { element: month, minLength: 1, errorField: month },
+                { element: year, minLength: 1, errorField: year },
+                { element: cvc, minLength: 1, errorField: cvc }
+            ];
+
+            let validado = true;
+
+            fields.forEach(field => {
+            if (field.element.value === '' || field.element.value.length <  field.minLength) {
+                showError(field.errorField);
+                validado = false;
+            }
+            });
+            if (validado) {
+                form.classList.add('hidden');              
+                notification.classList.remove('hidden');
+            }
+        });
+        btnContinue.addEventListener('click',(e)=>{
+          
+            notification.classList.add('hidden');
+            form.classList.remove('hidden');
+            form.reset();
+            resetCard();
+        })
+        function showError(element, text){
+            const input = document.querySelector(`.error-${element.name}`);
+            input.classList.remove('hidden');
+            element.classList.add('error');
+            setTimeout(() => {
+                input.classList.add('hidden');
+                element.classList.remove('error');    
+            }, 3000);
+        }
+        function resetCard(){
+            const cardNumber = document.querySelector('.card-number');
+            const cardCVC = document.querySelector('.card-cvc');
+            const cardName = document.querySelector('.card-name');
+            const cardMonth = document.querySelector('.card-month');
+            const cardYear = document.querySelector('.card-year');
+            cardName.textContent = 'Jane appleseed';
+            cardCVC.textContent = '000';
+            cardNumber.textContent = '0000 0000 0000 0000';
+            cardMonth.textContent = '00';
+            cardYear.textContent = '00';
+        }
+    </script>
+
+</body>
+</html>

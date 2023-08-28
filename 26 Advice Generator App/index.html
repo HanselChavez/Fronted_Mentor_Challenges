@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@800&display=swap" rel="stylesheet">
+    <title>Frontend Mentor | Advice generator app</title>
+
+    <style>
+        :root{
+            --light-Cyan: hsl(193, 38%, 86%);
+            --neon-Green: hsl(150, 100%, 66%);
+            --grayish-Blue: hsl(217, 19%, 38%);
+            --dark-Grayish-Blue: hsl(217, 19%, 24%);
+            --dark-Blue: hsl(218, 23%, 16%);
+        }
+        html{
+            box-sizing:  border-box;               
+        }    
+        body,html{      
+            height: 100vh;
+            background-color: var(--dark-Blue);
+            font-family: 'Manrope', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        p{
+            font-size: 16px;
+        }      
+        *,*::before,*::after{
+            text-align: center;
+            box-sizing: inherit;
+            margin: 0;
+            padding: 0;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .img-mobile{
+            width: 100%;
+        }
+        .img-desktop{
+            display: none;
+        }
+        .card{
+            width: 90%;
+            margin: 0 auto;
+            max-width: 470px;
+            background-color: var(--dark-Grayish-Blue);
+            position: relative;
+            padding: 35px 15px 50px;
+            border-radius: 10px;
+        }
+        .card-title{
+            color: var(--neon-Green);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 14px;            
+        }
+        .card-content p{
+            height: auto;
+            padding: 30px 0;
+            text-align: center;
+            font-size: 28px;
+            color: var(--light-Cyan);
+            
+        }
+        .icon-container{
+            
+            position: absolute;
+            cursor: pointer;
+            position: absolute;
+            bottom: -35px;
+            left: 50%; 
+            transform: translateX(-50%);
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            border-radius: 50%;
+            background-color: var(--neon-Green);
+        }
+        @media (min-width: 480px) {
+            .card{
+                padding: 40px 40px 70px;
+                box-shadow: 16px 22px 16px 0px rgba(0,0,0,0.1);
+            }
+            .img-desktop{
+                display: block;
+                width: 100%;
+            }
+            .img-mobile{
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="card">
+        <h2 class="card-title">Advice #<span class="advice-id"></span></h2>
+        <div class="card-content">
+            <p class="advice-text"></p>
+        </div>
+        <div class="img-container">
+            <img class="img-mobile" src="./images/pattern-divider-mobile.svg" alt="divider">
+            <img class="img-desktop"  src="./images/pattern-divider-desktop.svg" alt="divider">
+        </div>
+        <div class="icon-container">
+            <img class="icon" src="./images/icon-dice.svg" alt="icon-dice">
+        </div>
+    </main>
+    <script>
+        const btnAdvice = document.querySelector('.icon-container');
+        const adviceElement = document.querySelector('.advice-text');
+        const idElement = document.querySelector('.advice-id');
+
+        document.addEventListener('DOMContentLoaded', newAdvice);
+        btnAdvice.addEventListener('click', newAdvice);
+
+        async function newAdvice() {
+            const number = Math.floor(Math.random() *224);
+            const url = `https://api.adviceslip.com/advice/${number}`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                const { id, advice } = data.slip;
+
+                idElement.textContent = id;
+                adviceElement.textContent = `" ${advice} "`;
+            } catch (error) {
+                console.error('An error occurred:', error);
+            }
+        }
+    </script>
+</body>
+</html>

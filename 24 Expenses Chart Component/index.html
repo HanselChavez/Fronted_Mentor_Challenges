@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+    
+    <title>Frontend Mentor | Expenses chart component</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+        :root{
+            --red: hsl(10, 79%, 65%);
+            --cyan: hsl(186, 34%, 60%);
+            --dark-brown: hsl(25, 47%, 15%);
+            --medium-brown: hsl(28, 10%, 53%);
+            --cream: hsl(27, 66%, 92%);
+            --very-pale-orange: hsl(33, 100%, 98%);
+        }   
+        html{
+            box-sizing: border-box;            
+        }    
+        body,html{
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: var(--cream);
+        }
+        p{
+            font-size: 16px;
+        }      
+        *,*::before,*::after{
+            text-align: left;
+            box-sizing: inherit;
+            margin: 0;
+            padding: 0;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .container{
+            width: 90%;
+            margin: 0 auto;
+            max-width: 500px;
+        }
+        .balance {
+            background-color: var(--red);
+            border-radius: 10px;
+            padding: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;            
+            align-items: center;
+        }
+        .balance p{
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+            font-weight: 400;
+        }
+        .balance .mounth{
+            font-weight: 700;
+            font-size: 25px;
+        }
+        .logo-container,.img-logo {
+            height: 35px;
+        }
+        .spending{
+            margin-top: 20px;
+            border-radius: 10px;
+            background-color: var(--very-pale-orange);
+            padding: 20px;          
+        }
+        .spending h1{
+            color: var(--dark-brown);            
+        }
+        .graph{
+            padding: 0 0 30px;
+            border-bottom: 2px solid var(--cream);
+            margin: 20px 0;
+            display: flex;
+            height: 260px;           
+            justify-content: space-between;
+        }
+        .result div{ 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .result h3{
+            font-size: 16px;
+            color: var(--medium-brown);
+            font-weight: 400;
+        }
+        .result .mounth{
+            font-size: 30px;
+            color: var(--dark-brown);
+            font-weight: 700;
+        }
+        .result div p{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        .result .porcent{
+            color: var(--dark-brown);
+            font-weight: 700;
+        }
+        .result .text{
+            font-size: 16px;
+            color: var(--medium-brown);
+        }
+        .bar-container{
+            width: 10%;
+            display: flex;
+            gap: 10px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        .day{
+            font-size: 14px;
+            color: var(--medium-brown);
+        }
+        .bar{
+            border-radius: 4px;      
+            width: 120%;
+        }
+        .graph .amount{            
+            background-color: var(--dark-brown);
+            border-radius: 5px;
+            color: #fff;
+            padding: 5px;
+            font-size: 13px;
+        }
+        @media (min-width: 480px) {
+            .bar{
+                width: 110%;
+            }
+            .graph .amount{
+                font-size: 16px;
+                padding: 10px 12px;
+            }
+            .graph {
+                padding-bottom: 20px;
+            }
+            .spending{
+                padding: 30px;
+            }
+            .spending h1{
+                font-size: 30px;
+            }
+        }
+        .red{
+            background-color: var(--red);
+        }
+        .red:hover{
+            cursor: pointer;
+            background-color:  hsla(10, 79%, 54%, 0.616);
+        }
+        .cyan{
+            background-color: var(--cyan);
+        }
+        .cyan:hover{
+            cursor: pointer;
+            background-color:   hsla(186, 69%, 63%, 0.5);
+        }
+        .hidden{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <section class="balance">
+            <p>
+                My balance
+                <span class="mounth">
+                    $921.48
+                </span>                
+            </p>
+            <div class="logo-container">
+                <img class="img-logo" src="./images/logo.svg" alt="logo">;
+            </div>
+        </section>
+        <section class="spending">
+            <h1 >
+                Spending - Last 7 days
+            </h1>
+            <div class="graph">
+
+            </div>
+            <div class="result">
+                <h3>Total this month</h3>
+                <div>
+                    <p class="mounth">
+                        $478.33
+                    </p>
+                    <p class="text">
+                        <span class="porcent">
+                            +2.4%
+                        </span>
+                        from last month
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        const graphContainer = document.querySelector('.graph');
+        document.addEventListener('DOMContentLoaded',()=>{
+            const url = './data.json';
+            fetch(url)
+            .then(result => result.json())
+            .then(data => showGraph(data));
+        })
+
+        function showGraph(array){
+            let maxAmountObject = array[0];
+            for (let i = 1; i < array.length; i++) {
+                if (array[i].amount > maxAmountObject.amount) {
+                    maxAmountObject = array[i];
+                }
+            }
+            const maxAmount = maxAmountObject.amount;
+            array.forEach(element => {
+                const barContainer = document.createElement('div');
+                barContainer.classList.add('bar-container');
+                const {day,amount} = element;                   
+                                
+                const amountElement = document.createElement('p');
+                amountElement.classList.add('amount','hidden');
+                amountElement.textContent = '$'+amount;
+
+                const barElement = document.createElement('div');
+                barElement.style.height = `${parseInt(amount)*3}px`;
+                barElement.classList.add('bar');
+                barElement.classList.add(amount === maxAmount ? 'cyan' : 'red');
+
+                barElement.onmouseenter = () => {
+                    amountElement.classList.remove('hidden');
+                }
+                barElement.onmouseout = () =>{
+                    amountElement.classList.add('hidden');
+                }
+                const dayElement = document.createElement('p');
+                dayElement.textContent = day;
+                dayElement.classList.add('day');
+
+                barContainer.appendChild(amountElement);
+                barContainer.appendChild(barElement);
+                barContainer.appendChild(dayElement);
+                graphContainer.appendChild(barContainer);
+            });
+        }
+    </script>
+
+</body>
+</html>

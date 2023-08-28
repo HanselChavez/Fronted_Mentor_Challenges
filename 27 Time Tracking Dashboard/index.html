@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+    
+    <title>Frontend Mentor | Time tracking dashboard</title>
+
+    <style>
+        :root{
+            --Blue: hsl(246, 80%, 60%) ;
+
+            --Work: hsl(15, 100%, 70%) ;
+            --Play: hsl(195, 74%, 62%) ;
+            --Study: hsl(348, 100%, 68%);
+            --Exercise: hsl(145, 58%, 55%);
+            --Social: hsl(264, 64%, 52%);
+            --Self-Care: hsl(43, 84%, 65%);
+
+            --Very-dark-blue: hsl(226, 43%, 10%);
+            --Dark-blue: hsl(235, 46%, 20%);
+            --Desaturated-blue: hsl(235, 45%, 61%);
+            --Pale-Blue: hsl(236, 100%, 87%);
+        }
+        html{
+            box-sizing:  border-box;               
+        }    
+        body,html{
+            background-color: var(--Very-dark-blue);
+            font-family: 'Rubik', sans-serif;
+         
+        }
+        p{
+            font-size: 16px;
+        }      
+        *,*::before,*::after{
+            text-align: center;
+            box-sizing: inherit;
+            margin: 0;
+            color: #fff;
+            padding: 0;
+        }
+        .back-image{
+            background-repeat: no-repeat;
+            background-position: 90% -10px;  
+        }
+        .Work{
+            background-color: var(--Work);
+            background-image: url('./images/icon-work.svg');
+        }
+        .Play{
+            background-color: var(--Play);
+            background-image: url('./images/icon-play.svg');
+        }
+        .Study{
+            background-color: var(--Study);
+            background-image: url('./images/icon-study.svg');
+        }
+        .Exercise{
+            background-color: var(--Exercise);
+            background-image: url('./images/icon-exercise.svg');
+        }
+        .Social{
+            background-color: var(--Social);
+            background-image: url('./images/icon-social.svg');
+        }
+        .Self-Care{
+            background-color: var(--Self-Care);
+            background-image: url('./images/icon-self-care.svg');
+        }
+        .container{
+            width: 90%;
+            max-width: 320px;
+            margin:  94px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        .card-perfil{            
+            background-color: var(--Dark-blue);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding-bottom: 14px;
+            border-radius: 15px;
+        }
+        .perfil-image{
+            height: 70px;
+            border-radius: 50%;
+            border: 4px solid #fff;
+        }
+        .perfil{
+            padding:31px 25px ;
+            display: flex;        
+            align-items: center;    
+            background-color: var(--Blue);
+            border-radius: 15px;
+            gap: 20px;
+            
+        }
+        .perfil-text{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 15px;
+            color:#ffffff9a;
+            
+        }
+        .perfil-name{
+            color: #fff;
+            font-size: 25px;       
+            font-weight: 300;  
+        }
+        .links{
+            display: flex;
+            justify-content: space-around;
+            padding:4px 10px 10px;
+        }
+        .link{
+            text-decoration: none;
+            color: var(--Pale-Blue);
+            font-size: 18px;
+        }
+        .link:active, .link:hover{
+            color: #fff;
+        }
+        .selected {
+            color: #fff;
+        }
+        .cards-container{
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        .card-container{
+            width: 100%;
+            height: 160px;
+            border-radius: 15px;
+            display: flex;           
+            align-items: flex-end;
+        }
+        .card{
+            border-radius: 13px;
+            background-color: var(--Dark-blue);
+            padding: 27px 25px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card:hover{
+            background-color: hsl(238, 41%, 35%);
+        }
+        .card-title{
+            font-size: 18px;
+            font-weight: 500;
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }           
+        .svg{
+            fill:var(--Pale-Blue)
+        }
+        .svg:hover{
+            cursor: pointer;
+            fill: #fff;
+        }
+        .card-info span{
+            font-weight: 300;
+            font-size: 32px;
+        } 
+        .card-info{
+            display:  flex;
+            justify-content: center;
+            gap: 25px;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        .card-info-previous{
+            font-size: 14px;
+            color: var(--Pale-Blue);
+        }
+        @media (min-width: 480px) {
+            body{
+                height: 100vh;
+                display: flex;
+                align-items: center;
+            }
+            .container{
+                display: grid;
+                grid-template-rows: auto 4fr;
+                max-width: 1200px;
+                height: auto;      
+                margin: 0 auto;          
+            }
+            .cards-container{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 25px;
+            }
+        }
+        @media (min-width: 878px) {
+            .container{          
+                grid-template-rows: unset;     
+                grid-template-columns: auto 4fr;
+            }           
+            .card{
+                height: 180px;
+            }
+            .card-container{
+                height: 230px; 
+                width: 100%;            
+                max-width: 290px;   
+            }
+            .card-perfil{
+                width: 100%;
+                max-width: 290px;
+                gap: 30px;
+            }
+            .cards-container{
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+            .card-info{
+                flex-direction: column;
+                gap: 0;
+                align-items: flex-start;
+            }
+            .card-info span{
+                font-size: 55px;
+            }
+            .links{
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+                padding: 0 30px;
+            }
+            .perfil{
+                height: 70%;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start
+            }
+            .perfil-name{
+                font-size: 40px;
+                text-align: left;
+            }
+            .perfil-image{
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+      <main class="container">
+        <section class="card-perfil">
+            <div class="perfil">
+                <img class="perfil-image" src="./images/image-jeremy.png" alt="image-jeremy">
+                <p class="perfil-text">
+                    Report for
+                    <span class="perfil-name">
+                        Jeremy Robson
+                    </span>
+                </p>
+            </div>
+           <div class="links">
+               <a class="link" href="#" id="daily">Daily</a>
+               <a class="link selected" href="#" id="weekly">Weekly</a>
+               <a class="link" href="#" id="monthly">Monthly</a>
+               
+           </div>            
+        </section>
+        <section class="cards-container">
+
+        </section>
+    </main>
+    
+    <script>
+       const container = document.querySelector('.cards-container');
+        const dailyBtn = document.querySelector('#daily');
+        const monthlyBtn = document.querySelector('#monthly');
+        const weeklyBtn = document.querySelector('#weekly');
+
+        function fetchDataAndShowCards(time) {
+            fetch('./data.json')
+            .then(response => response.json())
+            .then(data => showCards(data, time));
+        }
+
+        function resetLink(selectedBtn) {
+            [dailyBtn, monthlyBtn, weeklyBtn].forEach(btn => {
+                if (btn !== selectedBtn) {
+                    btn.classList.remove('selected');
+                }
+            });
+        }
+
+        function handleTimeButtonClick(event, time) {
+            const clickedBtn = event.target;
+            resetLink(clickedBtn);
+            clickedBtn.classList.add('selected');
+            fetchDataAndShowCards(time);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchDataAndShowCards('weekly');
+        });
+
+        dailyBtn.addEventListener('click', (event) => {
+            handleTimeButtonClick(event, 'daily');
+        });
+
+        monthlyBtn.addEventListener('click', (event) => {
+            handleTimeButtonClick(event, 'monthly');
+        });
+
+        weeklyBtn.addEventListener('click', (event) => {
+            handleTimeButtonClick(event, 'weekly');
+        });
+
+
+        function showCards(data, time) {
+            clearElement(container);
+        
+            data.forEach(element => {
+                const { title, timeframes } = element;
+                const { [time]: { current, previous } } = timeframes;
+                
+                const cardContainer = document.createElement('section');
+                cardContainer.classList.add('card-container', `${title.replace(' ', '-')}`, 'back-image');
+                
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('card');
+                
+                const cardTitle = document.createElement('h2');
+                cardTitle.classList.add('card-title');
+                cardTitle.textContent = title;
+                
+                const spanHours = document.createElement('span');
+                spanHours.textContent = `${current}hrs`;
+                
+                const cardInfo = document.createElement('div');
+                cardInfo.classList.add('card-info');
+                
+                const svgContainer = document.createElement('div');
+                svgContainer.classList.add('icon-points');
+                svgContainer.innerHTML = `<svg width="21" height="7" class="svg" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Zm8 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Zm8 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Z" fill-rule="evenodd"/></svg>`;
+                
+                const previousInfo = document.createElement('div');
+                previousInfo.classList.add('card-info-previous');
+                previousInfo.textContent = `Last ${time} - ${previous}hrs`;
+
+                cardTitle.appendChild(svgContainer);
+                cardInfo.appendChild(spanHours);
+                cardInfo.appendChild(previousInfo);
+                
+                cardElement.appendChild(cardTitle);
+                cardElement.appendChild(cardInfo);
+                cardContainer.appendChild(cardElement);
+                container.appendChild(cardContainer);
+            });
+        }
+
+        function clearElement(element) {
+            while (element.firstChild) {
+                element.removeChild(element.firstChild);
+            }
+        }
+    </script>
+    
+</body>
+</html>

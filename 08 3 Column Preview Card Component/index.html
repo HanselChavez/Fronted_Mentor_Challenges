@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700&family=Lexend+Deca&display=swap" rel="stylesheet">
+    <title>Frontend Mentor | 3-column preview card component</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+        html{
+            box-sizing: border-box;            
+        }        
+        body{          
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            background-color:  hsl(0, 0%, 95%);
+            gap: 10px;           
+        }         
+        *,*::before,*::after{
+            text-align: center;
+            box-sizing: inherit;
+            margin: 0;
+            padding: 0;
+        } 
+        :root{
+            --shoulders: 'Big Shoulders Display', cursive;
+            --lexend: 'Lexend Deca', sans-serif;
+        }
+        .attribution { font-size: 14px; text-align: center; margin-bottom: 20px; }
+        .attribution a { color: hsl(228, 45%, 44%); }
+        .card-description{
+            font-size: 15px;
+        }
+        .bg-orange{
+            background-color: hsl(31, 77%, 52%);
+        }
+        .bg-dark-cyan{
+            background-color: hsl(184, 100%, 22%);
+        }
+        .bg-dark-cyan-2{
+            background-color: hsl(179, 100%, 13%);
+        }
+        .container{          
+            margin: 20px auto 0 auto;
+            border-radius: 7px;
+            width: 90%;
+            max-width: 320px;
+            overflow: hidden;
+        }
+       
+       
+        .card-title{
+            text-align: left;
+            color: hsl(0, 0%, 95%);
+            font-family: var(--shoulders);
+            text-transform: uppercase;
+            font-size: 34px;
+            margin: 25px 0;
+        }
+        .card-description{
+            text-align: left;
+            font-family: var(--lexend);
+            font-size: 15px;
+            color: hsla(0, 0%, 100%, 0.75);
+            line-height: 1.7;
+            
+        }
+        .button{
+            background-color: hsl(0, 0%, 95%);
+            border: 2px solid hsl(0, 0%, 95%);
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 25px;
+        }
+        .button:hover{
+            color: hsl(0, 0%, 95%);
+            background-color: transparent;
+        }
+        .text-orange{
+            color:  hsl(31, 77%, 52%);
+        }
+        .text-dark-cyan-2{
+            color: hsl(184, 100%, 22%);
+        }
+        .text-dark-cyan{
+            color:  hsl(179, 100%, 13%);
+        }
+        .card{
+            text-align: left;
+            padding: 40px;
+            min-height: 412px;
+        }
+        @media (min-width: 728px) {
+            .container{
+                display: flex;
+                justify-content: center;
+                max-width: none;
+                margin: 0 auto;
+                width: auto;
+            }
+            body,html{
+                height: 100%;
+            }
+            .card{
+                max-width: 290px;
+                min-height: 450px;
+            }
+            .button{
+                margin-top:60px ;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <div class="card bg-orange">
+            <img class="icon" src="./images/icon-sedans.svg" alt="icon-sedans">
+            <h2 class="card-title">Sedans</h2> 
+            <p class="card-description">
+                Choose a sedan for its affordability and excellent fuel economy. Ideal for cruising in the city 
+                or on your next road trip.
+            </p>
+            <button class="button text-orange">
+                Learn More
+            </button>        
+        </div>               
+        <div class="card bg-dark-cyan">
+            <img class="icon" src="./images/icon-suvs.svg" alt="icon-SUVs">
+            <h2 class="card-title"> SUVs</h2> 
+            <p class="card-description">
+                Take an SUV for its spacious interior, power, and versatility. Perfect for your next family vacation 
+                and off-road adventures.
+            </p>
+            <button class="button text-dark-cyan">
+                Learn More
+            </button>        
+        </div>
+        <div class="card bg-dark-cyan-2">
+            <img  class="icon" src="./images/icon-luxury.svg" alt="icon-luxury">
+            <h2 class="card-title">Luxury</h2> 
+            <p class="card-description">
+                Cruise in the best car brands without the bloated prices. Enjoy the enhanced comfort of a luxury 
+                rental and arrive in style.
+            </p>
+            <button class="button text-dark-cyan-2">
+                Learn More
+            </button>        
+        </div>
+    </main>
+    
+    
+
+   
+    
+
+  
+    
+    
+    <div class="attribution">
+        Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+        Coded by <a href="#">Your Name Here</a>.
+    </div>
+</body>
+</html>
